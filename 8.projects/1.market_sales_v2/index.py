@@ -9,6 +9,10 @@ from app import *
 import plotly.express as px
 import plotly.graph_objects as go
 
+from dash_bootstrap_templates import load_figure_template
+
+load_figure_template("minty")
+
 
 df_data = pd.read_csv("supermarket_sales.csv")
 df_data["Date"] = pd.to_datetime(df_data["Date"])
@@ -74,9 +78,9 @@ def render_page_content(cities, main_variable):
     fig_date_income = px.bar(df_date_income, y=main_variable, x="Date")
     fig_product_income = px.bar(df_product_income, x=main_variable, y="Product line", color="City", orientation="h", barmode="group")
 
-    for fig in [fig_city, fig_payment]:
-        fig.update_layout(margin=dict(l=0, r=20, t=20, b=20), height=200)
-    fig_product_income.update_layout(margin=dict(l=0, r=0, t=20, b=20), height=500)
+    for fig in [fig_city, fig_gender, fig_payment]:
+        fig.update_layout(margin=dict(l=0, r=20, t=20, b=20), height=200, template='minty')
+    fig_product_income.update_layout(margin=dict(l=0, r=0, t=20, b=20), height=500, template='minty')
 
     return fig_city, fig_gender, fig_payment, fig_date_income, fig_product_income
 
